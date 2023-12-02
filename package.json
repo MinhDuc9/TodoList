@@ -1,27 +1,32 @@
 {
-  "name": "fullweb",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "bcrypt": "^5.1.1",
-    "connect-flash": "^0.1.1",
-    "cookie-parser": "^1.4.6",
-    "express": "^4.18.2",
-    "express-handlebars": "^7.1.2",
-    "express-session": "^1.17.3",
-    "mongoose": "^8.0.2",
-    "passport": "^0.7.0"
-  },
-  "devDependencies": {
-    "morgan": "^1.10.0",
-    "node-sass": "^9.0.0",
-    "nodemon": "^3.0.2",
-    "prettier": "^3.1.0"
-  }
+    "name": "fullweb",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "prettier": "prettier package.json 'src/**/*.{js,json,scss,hbs}' --write --single-quote --tab-width 4",
+        "start": "nodemon --inspect src/server.js",
+        "watch": "node-sass --watch src/resources/scss/ --output src/public/css/",
+        "scss": "node-sass — watch scss -o css",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "bcrypt": "^5.1.1",
+        "connect-flash": "^0.1.1",
+        "cookie-parser": "^1.4.6",
+        "express": "^4.18.2",
+        "express-handlebars": "^7.1.2",
+        "express-session": "^1.17.3",
+        "moment-timezone": "^0.5.43",
+        "mongoose": "^8.0.2",
+        "passport": "^0.7.0"
+    },
+    "devDependencies": {
+        "morgan": "^1.10.0",
+        "node-sass": "^9.0.0",
+        "nodemon": "^3.0.2",
+        "prettier": "^3.1.0"
+    }
 }
