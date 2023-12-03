@@ -1,6 +1,3 @@
-// const User = require('../models/User');
-// const { mongooseToObject } = require('../../ulti/mongoose');
-
 class SiteController {
     // [GET] /
     index(req, res, next) {

@@ -1,7 +1,7 @@
 const ObjectID = require('mongodb').ObjectID;
 const { User } = require('./User');
 const moment = require('moment-timezone');
-moment.tz.setDefault('Asia/Bangkok').locale('id');
+moment.tz.setDefault('Asia/Jakarta').locale('id');
 
 async function createUser(name, email, pass) {
     let obj = { name: name, email: email, password: pass, todo: [] };
@@ -48,11 +48,16 @@ async function getTodoAll(id) {
 }
 module.exports.getTodoAll = getTodoAll;
 
-async function createTodo(id, title, dates) {
+async function createTodo(id, description, dates) {
     const time = moment(Date.now()).format('DD/MM HH:mm:ss');
     let users = await User.findOne({ _id: id });
     let todos = users.todo;
-    let obj = { _id: new ObjectID(), title: title, dueDate: dates, time: time };
+    let obj = {
+        _id: new ObjectID(),
+        description: description,
+        dueDate: dates,
+        time: time,
+    };
     todos.push(obj);
     User.updateOne({ _id: id }, { todo: todos }, function (err, obj) {
         if (err) throw err;
@@ -70,11 +75,11 @@ async function deleteTodo(id, idTodo) {
 }
 module.exports.deleteTodo = deleteTodo;
 
-async function editTodo(id, idTodo, title, dates) {
+async function editTodo(id, idTodo, description, dates) {
     let users = await User.findOne({ _id: id });
     let arr = users.todo;
     let index = arr.findIndex((x) => x._id == idTodo);
-    arr[index].title = title;
+    arr[index].description = description;
     arr[index].dueDate = dates;
     User.updateOne({ _id: id }, { todo: arr }, function (err, obj) {
         if (err) throw err;

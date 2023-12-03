@@ -12,7 +12,6 @@ const User = new Schema(
         todo: { type: Array },
     },
     {
-        timestamps: true,
         versionKey: false,
     },
 );
