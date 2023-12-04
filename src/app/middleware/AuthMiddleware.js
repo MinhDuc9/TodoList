@@ -1,17 +1,12 @@
-module.exports = {
-    isAuthenticated: function (req, res, next) {
-        if (req.isAuthenticated()) {
-            return next();
-        }
-        res.render('login', {
-            message: 'Please login to continue',
-            messageClass: 'alert-danger',
-        });
-    },
-    notAuthenticated: function (req, res, next) {
-        if (!req.isAuthenticated()) {
-            return next();
-        }
-        res.redirect('/todo');
-    },
-};
+const { User } = require('../models/User');
+
+function checkEmail(email) {
+    let users = User.find({ email: email });
+    if (users !== null) {
+        console.log(users.email);
+        return users.email;
+    } else {
+        return false;
+    }
+}
+module.exports.checkEmail = checkEmail;

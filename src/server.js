@@ -19,8 +19,6 @@ db.connect();
 app.use(morgan('combined'));
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(flash());
-
 app.use(
     session({
         secret: 'secret',
@@ -38,6 +36,9 @@ app.use(cookieParser());
 
 app.use(passport.initialize());
 app.use(passport.session());
+// require('./app/middleware/PassportMiddleware')(passport);
+
+app.use(flash());
 
 app.engine(
     'hbs',

@@ -1,10 +1,8 @@
 const siteRouter = require('./site');
-const usersRouter = require('./users');
-const todoRouter = require('./todo');
+const userRouter = require('./user');
 
 function route(app) {
-    app.use('/users', usersRouter);
-    app.use('/todo', todoRouter);
+    app.use('/users', userRouter);
     app.use('/', siteRouter);
 }
 
