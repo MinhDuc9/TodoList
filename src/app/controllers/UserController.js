@@ -1,6 +1,4 @@
 const User = require('../models/User');
-const { mutipleMongooseToObject } = require('../../ulti/mongoose');
-const { checkEmail } = require('../middleware/AuthMiddleware');
 
 const bcrypt = require('bcrypt');
 
