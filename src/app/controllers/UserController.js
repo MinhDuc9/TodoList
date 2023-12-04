@@ -15,7 +15,36 @@ class UserController {
 
     // [POST] /users/login
     get_in(req, res, next) {
-        res.send('Success');
+        const { email, password } = req.body;
+
+        User.findOne({ email: email })
+            .then((data) => {
+                if (data !== null){
+                    const myPlaintextPassword = password;
+                    bcrypt.compare(
+                        myPlaintextPassword,
+                        data.password,
+                        function (err, result) {
+                            if (result) {
+                                res.render('todo/index');
+                            } else {
+                                res.render('login', {
+                                    message: 'Wrong password',
+                                    messageClass: 'alert-danger',
+                                });
+                            }
+                        },
+                    );
+                } else {
+                    res.render('login', {
+                        message: 'Wrong email',
+                        messageClass: 'alert-danger',
+                    });
+                }
+            })
+            .catch((err) => {
+                
+            })
     }
 
     // [POST] /users/register
