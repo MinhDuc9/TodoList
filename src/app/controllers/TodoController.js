@@ -1,4 +1,8 @@
 const User = require('../models/User');
+const moment = require('moment-timezone');
+const mongoose = require('mongoose');
+
+moment.tz.setDefault('Asia/Ho_Chi_Minh').locale('id');
 
 class TodoController {
     // [GET] /todo
@@ -9,6 +13,7 @@ class TodoController {
         User.findOne({ email: email }).then((data) => {
             res.render('todo/index', {
                 user: user,
+                todos: data.todo,
             });
         });
         // res.render('todo/index', {
@@ -32,19 +37,20 @@ class TodoController {
         const email = req.session.email;
         const user_id = req.session.userId;
 
+        const { title, dueDate } = req.body;
+        const time = moment(Date.now()).format('DD/MM HH:mm:ss');
         const newTodoItem = {
-            text: 'Buy groceries',
-            completed: false,
+            title: title,
+            dueDate: dueDate,
+            time: time,
+            _id: new mongoose.Types.ObjectId(),
         };
 
-        // res.render('todo/index', {
-        //     user: user,
-        //     todos: data.todo
-        // })
-        User.find({ _id: user_id }).then((data) => {
-            res.json({ test: data });
+        User.findOne({ _id: user_id }).then((data) => {
+            data.todo.push(newTodoItem);
+            data.save();
+            res.redirect('/todo');
         });
-        // res.json({ test: req.body, test2: user_id });
     }
 }
 
