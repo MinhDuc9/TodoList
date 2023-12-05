@@ -94,14 +94,42 @@ class TodoController {
             .then((data) => {
                 let arr = data.todo;
 
-                let index = arr.findIndex((x) => x._id == todoId);
+                let index = arr.findIndex((x) => x._id == ObjectId);
 
                 arr[index].title = title;
                 arr[index].dueDate = dueDate;
-                User.updateOne({ _id: id }, { todo: arr }, function (err, obj) {
-                    if (err) throw err;
-                });
-                res.redirect('/todo');
+
+                User.updateOne({ _id: data._id }, { todo: arr })
+                    .then(() => {
+                        res.redirect('/todo');
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                    });
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    }
+
+    // [POST] /todo/delete
+    deleteTodo(req, res, next) {
+        const email = req.session.email;
+        const { id } = req.body;
+
+        User.findOne({ email: email })
+            .then((data) => {
+                let arr = data.todo;
+
+                arr = arr.filter((x) => x._id != id);
+
+                User.updateOne({ _id: data._id }, { todo: arr })
+                    .then(() => {
+                        res.redirect('/todo');
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                    });
             })
             .catch((err) => {
                 console.log(err);
