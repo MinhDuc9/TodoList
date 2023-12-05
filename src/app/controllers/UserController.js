@@ -1,5 +1,6 @@
 const User = require('../models/User');
 
+const passport = require('passport');
 const bcrypt = require('bcrypt');
 
 class UserController {
@@ -26,6 +27,8 @@ class UserController {
                         data.password,
                         function (err, result) {
                             if (result) {
+                                req.session.user = data.name;
+                                req.session.email = data.email;
                                 res.redirect('/todo');
                             } else {
                                 res.render('login', {

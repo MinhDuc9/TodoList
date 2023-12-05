@@ -25,15 +25,18 @@
             <ul class='navbar-nav ml-auto'>
 
                 {{#if user}}
-                    <li class='nav-item'>
+                    <li class='nav-item user-logged-in'>
                         <a href='/users/delete' class='nav-link'>
                             Delete Account
                         </a>
                     </li>
-                    <li class='nav-item'>
+                    <li class='nav-item user-logged-in'>
                         <a href='/users/logout' class='nav-link'>
                             Logout
                         </a>
+                    </li>
+                    <li class='nav-item user-logged-in'>
+                        <span class='user-display'>{{user}}</span>
                     </li>
                 {{else}}
                     <li class='nav-item'>

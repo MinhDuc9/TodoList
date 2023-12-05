@@ -1,7 +1,10 @@
 class TodoController {
     // [GET] /todo
     index(req, res, next) {
-        res.render('todo/index');
+        const user = req.session.user;
+        res.render('todo/index', {
+            user: user,
+        });
     }
 }
 
