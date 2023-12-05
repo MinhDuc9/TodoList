@@ -10,12 +10,16 @@ class TodoController {
         const user = req.session.user;
         const email = req.session.email;
 
-        User.findOne({ email: email }).then((data) => {
-            res.render('todo/index', {
-                user: user,
-                todos: data.todo,
+        User.findOne({ email: email })
+            .then((data) => {
+                res.render('todo/index', {
+                    user: user,
+                    todos: data.todo,
+                });
+            })
+            .catch((err) => {
+                next(err);
             });
-        });
         // res.render('todo/index', {
         //     user: user,
         // });
@@ -46,11 +50,15 @@ class TodoController {
             _id: new mongoose.Types.ObjectId(),
         };
 
-        User.findOne({ _id: user_id }).then((data) => {
-            data.todo.push(newTodoItem);
-            data.save();
-            res.redirect('/todo');
-        });
+        User.findOne({ _id: user_id })
+            .then((data) => {
+                data.todo.push(newTodoItem);
+                data.save();
+                res.redirect('/todo');
+            })
+            .catch((err) => {
+                next(err);
+            });
     }
 }
 
