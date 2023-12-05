@@ -66,23 +66,46 @@ class TodoController {
         const user_id = req.session.userId;
         let todoId = req.params.id;
 
-        User.findOne({ email: email }).then((data) => {
-            let arr = data.todo;
+        User.findOne({ email: email })
+            .then((data) => {
+                let arr = data.todo;
 
-            let index = arr.findIndex((x) => x._id == todoId);
+                let index = arr.findIndex((x) => x._id == todoId);
 
-            res.render('todo/edit', {
-                user: user,
-                todoTitle: arr[index].title,
-                todoDueDate: arr[index].dueDate,
-                _id: arr[index]._id,
+                res.render('todo/edit', {
+                    user: user,
+                    todoTitle: arr[index].title,
+                    todoDueDate: arr[index].dueDate,
+                    ObjectId: arr[index]._id,
+                    UserId: user_id,
+                });
+            })
+            .catch((err) => {
+                console.log(err);
             });
-        });
     }
 
     // [POST] /todo/edit/
     saveEditTodo(req, res, next) {
-        res.json({ test: req.body });
+        const email = req.session.email;
+        const { title, dueDate, ObjectId, UserId } = req.body;
+
+        User.findOne({ email: email })
+            .then((data) => {
+                let arr = data.todo;
+
+                let index = arr.findIndex((x) => x._id == todoId);
+
+                arr[index].title = title;
+                arr[index].dueDate = dueDate;
+                User.updateOne({ _id: id }, { todo: arr }, function (err, obj) {
+                    if (err) throw err;
+                });
+                res.redirect('/todo');
+            })
+            .catch((err) => {
+                console.log(err);
+            });
     }
 }
 
