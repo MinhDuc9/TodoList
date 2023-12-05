@@ -1,9 +1,19 @@
+const User = require('../models/User');
+
 class SiteController {
     // [GET] /
     index(req, res, next) {
-        res.render('index', {
-            title: 'Minh Duc - ToDo',
-        });
+        const user = req.session.user;
+        const email = req.session.email;
+        const user_id = req.session.userId;
+
+        if (user !== undefined) {
+            res.redirect('/todo');
+        } else {
+            res.render('index', {
+                title: 'Minh Duc - ToDo',
+            });
+        }
     }
 
     // [GET] /about

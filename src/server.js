@@ -22,7 +22,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(
     session({
         secret: 'secret',
-        resave: true,
+        resave: false,
         saveUninitialized: true,
         genid: (req) => {
             // Implement your logic to generate a new session ID

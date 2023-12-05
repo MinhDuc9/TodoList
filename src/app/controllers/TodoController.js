@@ -20,9 +20,6 @@ class TodoController {
             .catch((err) => {
                 next(err);
             });
-        // res.render('todo/index', {
-        //     user: user,
-        // });
     }
 
     // [GET] /todo/add
@@ -44,6 +41,7 @@ class TodoController {
         const { title, dueDate } = req.body;
         const time = moment(Date.now()).format('DD/MM HH:mm:ss');
         const newTodoItem = {
+            user: user,
             title: title,
             dueDate: dueDate,
             time: time,
@@ -59,6 +57,32 @@ class TodoController {
             .catch((err) => {
                 next(err);
             });
+    }
+
+    // [GET] /todo/edit/:id
+    editTodo(req, res, next) {
+        const user = req.session.user;
+        const email = req.session.email;
+        const user_id = req.session.userId;
+        let todoId = req.params.id;
+
+        User.findOne({ email: email }).then((data) => {
+            let arr = data.todo;
+
+            let index = arr.findIndex((x) => x._id == todoId);
+
+            res.render('todo/edit', {
+                user: user,
+                todoTitle: arr[index].title,
+                todoDueDate: arr[index].dueDate,
+                _id: arr[index]._id,
+            });
+        });
+    }
+
+    // [POST] /todo/edit/
+    saveEditTodo(req, res, next) {
+        res.json({ test: req.body });
     }
 }
 

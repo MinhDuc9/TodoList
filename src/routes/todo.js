@@ -7,6 +7,8 @@ const {
 
 const TodoController = require('../app/controllers/TodoController');
 
+router.get('/edit/:id', TodoController.editTodo);
+router.post('/edit', TodoController.saveEditTodo);
 router.get('/add', TodoController.addTodo);
 router.post('/', TodoController.createTodo);
 router.get('/', TodoController.index);
