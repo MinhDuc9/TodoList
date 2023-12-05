@@ -24,6 +24,11 @@ app.use(
         secret: 'secret',
         resave: true,
         saveUninitialized: true,
+        genid: (req) => {
+            // Implement your logic to generate a new session ID
+            // This function can access req object and customize the ID
+            return 'custom_session_id';
+        },
     }),
 );
 app.use(

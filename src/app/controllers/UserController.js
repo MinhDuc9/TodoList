@@ -29,6 +29,7 @@ class UserController {
                             if (result) {
                                 req.session.user = data.name;
                                 req.session.email = data.email;
+                                req.session.userId = data._id;
                                 res.redirect('/todo');
                             } else {
                                 res.render('login', {
