@@ -19,14 +19,14 @@ class UserController {
 
         User.findOne({ email: email })
             .then((data) => {
-                if (data !== null){
+                if (data !== null) {
                     const myPlaintextPassword = password;
                     bcrypt.compare(
                         myPlaintextPassword,
                         data.password,
                         function (err, result) {
                             if (result) {
-                                res.render('todo/index');
+                                res.redirect('/todo');
                             } else {
                                 res.render('login', {
                                     message: 'Wrong password',
@@ -43,8 +43,8 @@ class UserController {
                 }
             })
             .catch((err) => {
-                
-            })
+                next(err);
+            });
     }
 
     // [POST] /users/register
