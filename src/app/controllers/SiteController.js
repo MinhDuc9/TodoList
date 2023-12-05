@@ -18,7 +18,13 @@ class SiteController {
 
     // [GET] /about
     about(req, res, next) {
-        res.render('about');
+        const user = req.session.user;
+        const email = req.session.email;
+        const user_id = req.session.userId;
+
+        res.render('about', {
+            user: user,
+        });
     }
 }
 
