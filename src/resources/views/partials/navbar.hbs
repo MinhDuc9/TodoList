@@ -1,6 +1,10 @@
 <nav class='navbar navbar-expand-sm navbar-dark bg-dark mb-3'>
     <div class='container'>
-        <a class='navbar-brand' href='/'>MinhDuc-ToDo</a>
+        {{#if user}}
+            <a class='navbar-brand' href='/'>{{user}}-ToDo</a>
+        {{else}}
+            <a class='navbar-brand' href='/'>MinhDucLe-ToDo</a>
+        {{/if}}
         <button
             class='navbar-toggler'
             type='button'
