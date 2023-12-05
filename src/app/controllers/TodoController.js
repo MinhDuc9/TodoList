@@ -41,7 +41,6 @@ class TodoController {
         const { title, dueDate } = req.body;
         const time = moment(Date.now()).format('DD/MM HH:mm:ss');
         const newTodoItem = {
-            user: user,
             title: title,
             dueDate: dueDate,
             time: time,
