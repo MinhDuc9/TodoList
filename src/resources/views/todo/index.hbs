@@ -9,10 +9,8 @@
                 <p>Due date/Deadlines: {{dueDate}}</p>
                 <p>Creation date: {{time}} (Jakarta, GMT +07.00)</p>
                 
-                {{#each ../timeData}}
-                        <p>Days left: {{daysLeft}}</p>
-                        <p>Hours left: {{hoursLeft}}</p>
-                {{/each}}
+                <p>Days left: {{timeData.daysLeft}}</p>
+                <p>Hours left: {{timeData.hoursLeft}}</p>
 
                 <form action='/todo/delete' method='POST'>
                     <a class='btn btn-dark mb-2' href='/todo/edit/{{_id}}'>Edit Task</a>

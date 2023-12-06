@@ -15,21 +15,17 @@ class TodoController {
                 const currentDate = moment();
 
                 let arr = data.todo;
-                let arr_time = []
-                arr.forEach((x) => {
-                    let singleObj = {};
-                    let deadline = moment(x.dueDate);
-                    singleObj['daysLeft'] = deadline.diff(currentDate, 'days');
-                    singleObj['hoursLeft'] = deadline.diff(currentDate, 'hours');
-                    arr_time.push(singleObj)
-                });
 
-                // res.json({ test: arr_time })
+                arr.forEach((x) => {
+                    let deadline = moment(x.dueDate);
+                    x.timeData = {};
+                    x.timeData.daysLeft = deadline.diff(currentDate, 'days');
+                    x.timeData.hoursLeft = deadline.diff(currentDate, 'hours');
+                });
 
                 res.render('todo/index', {
                     user: user,
                     todos: data.todo,
-                    timeData: arr_time,
                 });
             })
             .catch((err) => {
