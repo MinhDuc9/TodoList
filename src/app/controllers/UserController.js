@@ -151,7 +151,55 @@ class UserController {
         const email = req.session.email;
         const user_id = req.session.userId;
 
-        res.json({ data: req.body });
+        const result = req.body.resp;
+
+        if (result === 'no') {
+            res.redirect('/todo');
+        } else {
+            User.deleteOne({ _id: user_id })
+                .then(() => {
+                    req.session.destroy((err) => {
+                        if (err) {
+                            console.error('Error destroying session:', err);
+                            res.status(500).send('Internal Server Error');
+                        } else {
+                            // Redirect to the login page or any other desired page after logout
+                            res.redirect('/');
+                        }
+                    });
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+        }
+    }
+
+    get_edit(req, res, next) {
+        const user = req.session.user;
+        const email = req.session.email;
+        const user_id = req.session.userId;
+
+        res.render('edit_user', {
+            user: user,
+            email: email,
+        });
+    }
+
+    edit_user(req, res, next) {
+        const user_id = req.session.userId;
+
+        const { name, email } = req.body;
+
+        User.findByIdAndUpdate(user_id, { name, email }, { new: true })
+            .then((data) => {
+                req.session.user = data.name;
+                req.session.email = data.email;
+                req.session.userId = data._id;
+                res.redirect('/todo');
+            })
+            .catch((err) => {
+                console.log(err);
+            });
     }
 }
 
