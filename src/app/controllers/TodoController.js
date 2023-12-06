@@ -12,9 +12,24 @@ class TodoController {
 
         User.findOne({ email: email })
             .then((data) => {
+                const currentDate = moment();
+
+                let arr = data.todo;
+                let arr_time = []
+                arr.forEach((x) => {
+                    let singleObj = {};
+                    let deadline = moment(x.dueDate);
+                    singleObj['daysLeft'] = deadline.diff(currentDate, 'days');
+                    singleObj['hoursLeft'] = deadline.diff(currentDate, 'hours');
+                    arr_time.push(singleObj)
+                });
+
+                // res.json({ test: arr_time })
+
                 res.render('todo/index', {
                     user: user,
                     todos: data.todo,
+                    timeData: arr_time,
                 });
             })
             .catch((err) => {
