@@ -5,7 +5,11 @@
         </div>
     {{/if}}
     <h3>Edit Task</h3>
-    <form action='/todo/edit' method='POST'>
+    <form
+        onsubmit="return validateForm(document.getElementById('dueDate'))"
+        action='/todo/edit'
+        method='POST'
+    >
         <div class='form-group'>
             <label for='title'>Title</label>
             <textarea
@@ -32,3 +36,5 @@
         <button type='submit' class='btn btn-dark'>Submit</button>
     </form>
 </div>
+
+<script src='/scripts/timeDateControl.js'></script>

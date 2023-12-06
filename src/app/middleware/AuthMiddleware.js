@@ -1,17 +1,15 @@
 module.exports = {
     isAuthenticated: function (req, res, next) {
-        if (req.isAuthenticated()) {
+        const user = req.session.user;
+        const email = req.session.email;
+        const user_id = req.session.userId;
+
+        if (email !== undefined) {
             return next();
         }
         res.render('login', {
             message: 'Please login to continue',
             messageClass: 'alert-danger',
         });
-    },
-    notAuthenticated: function (req, res, next) {
-        if (!req.isAuthenticated()) {
-            return next();
-        }
-        res.redirect('/todo');
     },
 };

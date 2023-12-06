@@ -134,6 +134,25 @@ class UserController {
             }
         });
     }
+
+    get_delete(req, res, next) {
+        const user = req.session.user;
+        const email = req.session.email;
+        const user_id = req.session.userId;
+
+        res.render('delete', {
+            user: user,
+            email: email,
+        });
+    }
+
+    delete_acc(req, res, next) {
+        const user = req.session.user;
+        const email = req.session.email;
+        const user_id = req.session.userId;
+
+        res.json({ data: req.body });
+    }
 }
 
 module.exports = new UserController();
