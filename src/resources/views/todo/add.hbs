@@ -5,7 +5,7 @@
         </div>
     {{/if}}
     <h3>Todo</h3>
-    <form onsubmit='return validateForm()' action='/todo' method='post'>
+    <form onsubmit="return validateForm()" action="/todo" method="post">
         <div class='form-group'>
             <label for='title'>Title</label>
             <input
@@ -18,31 +18,38 @@
         </div>
         <div class='form-group'>
             <label for='dueDate'>Due Date</label>
-            <input
-                class='form-control'
-                type='date'
-                id='dueDate'
-                name='dueDate'
-                placeholder='23 Febuary 2023'
-                required
-            />
+            <input class='form-control' type="date" id="dueDate" name="dueDate" placeholder="23 Febuary 2023" required>
         </div>
         <button type='submit' class='btn btn-dark'>Submit</button>
     </form>
 </div>
 
 <script>
-    function validateForm() { const datePicker =
-    document.getElementById('dueDate'); const selectedDateValue =
-    datePicker.value; // Get the current date let currentDate = new
-    Date().toISOString().split('T')[0]; if (selectedDateValue < currentDate) {
-    alert('Please select a date not in the past.'); return false; // Prevent
-    form submission } const selectedDate = new Date(selectedDateValue); // Get
-    the current date currentDate = new Date(); // Calculate the difference in
-    milliseconds const differenceInMilliseconds = selectedDate - currentDate; //
-    Convert milliseconds to days const differenceInDays =
-    Math.ceil(differenceInMilliseconds / (1000 * 60 * 60 * 24)); const
-    differenceInHours = Math.ceil(differenceInMilliseconds / (1000 * 60 * 60));
-    alert(`Days left till deadline: ${differenceInDays}\nHours left till
-    dealine: ${differenceInHours}`); return true; // Allow form submission }
+    function validateForm() {
+        const datePicker = document.getElementById('dueDate');
+        const selectedDateValue = datePicker.value;
+
+        // Get the current date
+        let currentDate = new Date().toISOString().split('T')[0];
+
+        if (selectedDateValue < currentDate) {
+            alert('Please select a date not in the past.');
+            return false; // Prevent form submission
+        }
+
+        const selectedDate = new Date(selectedDateValue);
+        
+        // Get the current date
+        currentDate = new Date();
+
+        // Calculate the difference in milliseconds
+        const differenceInMilliseconds = selectedDate - currentDate;
+
+        // Convert milliseconds to days
+        const differenceInDays = Math.ceil(differenceInMilliseconds / (1000 * 60 * 60 * 24));
+        const differenceInHours = Math.ceil(differenceInMilliseconds / (1000 * 60 * 60));
+
+        alert(`Days left till deadline: ${differenceInDays}\nHours left till dealine: ${differenceInHours}`);
+        return true; // Allow form submission
+    }
 </script>
