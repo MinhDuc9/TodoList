@@ -13,16 +13,18 @@
                 class='form-control'
                 name='title'
                 placeholder='Practice with Node JS '
+                required
             >{{todoTitle}}</textarea>
         </div>
         <div class='form-group'>
             <label for='dueDate'>Due Date</label>
             <input
                 class='form-control'
+                type='date'
+                id='dueDate'
                 name='dueDate'
-                type='text'
-                placeholder='Enter date like DD/MM/YYYY'
                 value='{{todoDueDate}}'
+                required
             />
         </div>
         <input type='hidden' value='{{UserId}}' name='UserId' />
