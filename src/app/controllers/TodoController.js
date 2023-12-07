@@ -30,9 +30,18 @@ class TodoController {
 
                     // Store the calculated values
                     x.timeData = {};
-                    x.timeData.daysLeft = daysLeft;
-                    x.timeData.hoursLeft = hoursLeft;
-                    x.timeData.hoursOnly = deadline.diff(currentDate, 'hours');
+                    if (diff > 0) {
+                        x.timeData.daysLeft = hoursLeft;
+                        x.timeData.hoursLeft = daysLeft;
+                        x.timeData.hoursOnly = deadline.diff(
+                            currentDate,
+                            'hours',
+                        );
+                    } else {
+                        x.timeData.daysLeft = 0;
+                        x.timeData.hoursLeft = 0;
+                        x.timeData.hoursOnly = 0;
+                    }
                 });
 
                 res.render('todo/index', {
