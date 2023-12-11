@@ -51,13 +51,13 @@ app.engine(
         extname: '.hbs',
         helpers: {
             employeeName: (employee) => {
-                return `${employee.name}`;
+                return employee.name;
             },
             employeeEmail: (employee) => {
-                return `${employee.email}`;
+                return employee.email;
             },
             employeeId: (employee) => {
-                return `${employee._id}`;
+                return employee._id;
             },
         },
     }),
