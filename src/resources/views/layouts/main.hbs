@@ -11,7 +11,11 @@
     </head>
     <body>
 
-        {{> navbar}}
+        {{#if admin}}
+            {{> navbar2}}
+        {{else}}
+            {{> navbar}}
+        {{/if}}
 
         <div class="container">
             {{> errors}}
