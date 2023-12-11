@@ -14,12 +14,12 @@ class AdminController {
             User.find({})
                 .then((data) => {
                     res.render('admin_site/index', {
-                        names: data.map((item) => item.name )
+                        employees: data,
+                        admin: admin,
                     });
                 })
                 .catch((error) => {
                     console.error(error);
-                    res.status(500).send('Internal Server Error');
                 });
         } else {
             res.redirect('/admin/login');
@@ -28,7 +28,7 @@ class AdminController {
 
     // [GET] /admin/login
     get_login(req, res, next) {
-        res.render('login_admin')
+        res.render('login_admin');
     }
 
     // [GET] /admin/register

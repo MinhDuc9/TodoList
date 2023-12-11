@@ -1,10 +1,21 @@
-<div class="dropdown">
-  <button class="btn btn-secondary dropdown-toggle" type="button" id="namesDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    Select a Name
-  </button>
-  <div class="dropdown-menu" aria-labelledby="namesDropdown">
-    {{#each names}}
-      <a class="dropdown-item" href="#">{{this}}</a>
-    {{/each}}
-  </div>
-</div>
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each employees}}
+            <tr>
+                <td class='table-cell'>{{employeeName this}}</td>
+                <td class='table-cell'>{{employeeEmail this}}</td>
+                <td class='table-cell'>
+                    <a href='/admin/employee/{{this._id}}'>Go to employee</a>
+                </td>
+            </tr>
+        {{/each}}
+
+    </tbody>
+</table>

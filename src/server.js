@@ -49,6 +49,14 @@ app.engine(
     'hbs',
     handlebars({
         extname: '.hbs',
+        helpers: {
+            employeeName: (employee) => {
+                return `${employee.name}`;
+            },
+            employeeEmail: (employee) => {
+                return `${employee.email}`;
+            },
+        },
     }),
 );
 app.set('view engine', 'hbs');
