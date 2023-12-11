@@ -1,0 +1,10 @@
+<div class="dropdown">
+  <button class="btn btn-secondary dropdown-toggle" type="button" id="namesDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Select a Name
+  </button>
+  <div class="dropdown-menu" aria-labelledby="namesDropdown">
+    {{#each names}}
+      <a class="dropdown-item" href="#">{{this}}</a>
+    {{/each}}
+  </div>
+</div>
