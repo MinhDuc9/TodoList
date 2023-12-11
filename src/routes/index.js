@@ -1,7 +1,7 @@
 const siteRouter = require('./site');
 const userRouter = require('./user');
 const todoRouter = require('./todo');
-const adminsiteRouter = require('./siteAdmin');
+const adminsiteRouter = require('./admin');
 
 const {
     isAuthenticated,

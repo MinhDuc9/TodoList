@@ -56,6 +56,9 @@ app.engine(
             employeeEmail: (employee) => {
                 return `${employee.email}`;
             },
+            employeeId: (employee) => {
+                return `${employee._id}`;
+            },
         },
     }),
 );
