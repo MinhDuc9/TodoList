@@ -2,56 +2,16 @@ const User = require('../models/User');
 const moment = require('moment-timezone');
 const mongoose = require('mongoose');
 
+const { GetUserInfo } = require('../Functions/GetInfo');
+
 moment.tz.setDefault('Asia/Ho_Chi_Minh').locale('id');
 
 class TodoController {
     // [GET] /todo
     index(req, res, next) {
-        const user = req.session.user;
-        const email = req.session.email;
+        const userId = req.session.userId;
 
-        User.findOne({ email: email })
-            .then((data) => {
-                const currentDate = moment();
-
-                let arr = data.todo;
-
-                arr.forEach((x) => {
-                    let deadline = moment(x.dueDate);
-
-                    // Calculate the difference in milliseconds
-                    const diff = deadline.diff(currentDate, 'milliseconds');
-
-                    // Convert milliseconds to days and hours
-                    const daysLeft = Math.floor(diff / (1000 * 60 * 60 * 24));
-                    const hoursLeft = Math.floor(
-                        (diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60),
-                    );
-
-                    // Store the calculated values
-                    x.timeData = {};
-                    if (diff > 0) {
-                        x.timeData.daysLeft = hoursLeft;
-                        x.timeData.hoursLeft = daysLeft;
-                        x.timeData.hoursOnly = deadline.diff(
-                            currentDate,
-                            'hours',
-                        );
-                    } else {
-                        x.timeData.daysLeft = 0;
-                        x.timeData.hoursLeft = 0;
-                        x.timeData.hoursOnly = 0;
-                    }
-                });
-
-                res.render('todo/index', {
-                    user: user,
-                    todos: data.todo,
-                });
-            })
-            .catch((err) => {
-                next(err);
-            });
+        GetUserInfo(userId, req, res, next);
     }
 
     // [GET] /todo/add
