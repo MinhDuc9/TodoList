@@ -36,7 +36,7 @@ class AdminController {
         res.render('register_admin');
     }
 
-    // [POST] /admin/login
+    // [GET] /admin/login
     login(req, res, next) {
         const { email, password } = req.body;
 
@@ -54,7 +54,7 @@ class AdminController {
                                 req.session.adminId = data._id;
                                 res.redirect('/admin');
                             } else {
-                                res.render('login', {
+                                res.render('login_admin', {
                                     message: 'Wrong password',
                                     messageClass: 'alert-danger',
                                 });
@@ -62,7 +62,7 @@ class AdminController {
                         },
                     );
                 } else {
-                    res.render('login', {
+                    res.render('login_admin', {
                         message: 'Wrong email',
                         messageClass: 'alert-danger',
                     });
@@ -73,6 +73,7 @@ class AdminController {
             });
     }
 
+    // [POST] /admin/register
     register(req, res, next) {
         try {
             let { name, email, password, confirmPassword } = req.body;
@@ -114,7 +115,7 @@ class AdminController {
 
                                     const savetoDB = new Admin(new_user);
                                     savetoDB.save();
-                                    res.render('login', {
+                                    res.render('login_admin', {
                                         message:
                                             'Registration Complete. Please login to continue.',
                                         messageClass: 'alert-success',
@@ -122,7 +123,7 @@ class AdminController {
                                 },
                             );
                         } else {
-                            res.render('register', {
+                            res.render('register_admin', {
                                 message: 'Email have already been registered',
                                 messageClass: 'alert-danger',
                             });
@@ -132,7 +133,7 @@ class AdminController {
                         next(err);
                     });
             } else {
-                res.render('register', {
+                res.render('register_admin', {
                     message: 'Password does not match.',
                     messageClass: 'alert-danger',
                 });
