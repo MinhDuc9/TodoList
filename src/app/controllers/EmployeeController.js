@@ -103,6 +103,32 @@ class EmployeeController {
                 console.log(err);
             });
     }
+
+    deleteTodo(req, res, next) {
+        const admin = req.session.admin;
+        const email = req.session.email;
+        const admin_id = req.session.adminId;
+        const userId = req.session.user_id;
+        const { id } = req.body;
+
+        User.findById(userId)
+            .then((data) => {
+                let arr = data.todo;
+
+                arr = arr.filter((x) => x._id != id);
+
+                User.updateOne({ _id: data._id }, { todo: arr })
+                    .then(() => {
+                        res.redirect(`/admin/employee/${userId}`);
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                    });
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    }
 }
 
 module.exports = new EmployeeController();
