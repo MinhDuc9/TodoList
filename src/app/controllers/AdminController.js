@@ -144,7 +144,7 @@ class AdminController {
         }
     }
 
-    // [POST] /admin/logout
+    // [GET] /admin/logout
     logout(req, res, next) {
         req.session.destroy((err) => {
             if (err) {
