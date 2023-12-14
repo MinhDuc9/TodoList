@@ -10,6 +10,8 @@ router.post('/login', AdminController.login);
 router.get('/register', AdminController.get_register);
 router.post('/register', AdminController.register);
 
+router.get('/logout', AdminController.logout);
+
 router.post('/employee/delete', EmployeeController.deleteTodo);
 
 router.get('/employee/add', EmployeeController.addTodo);

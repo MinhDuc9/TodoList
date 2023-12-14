@@ -143,6 +143,19 @@ class AdminController {
             console.log(err);
         }
     }
+
+    // [POST] /admin/logout
+    logout(req, res, next) {
+        req.session.destroy((err) => {
+            if (err) {
+                console.error('Error destroying session:', err);
+                res.status(500).send('Internal Server Error');
+            } else {
+                // Redirect to the login page or any other desired page after logout
+                res.redirect('/admin/login');
+            }
+        });
+    }
 }
 
 module.exports = new AdminController();
