@@ -17,7 +17,38 @@ class EmployeeController {
 
     // [GET] admin/employee/add
     addTodo(req, res, next) {
-        res.json({ test: 'Success' });
+        const admin = req.session.admin;
+        const email = req.session.email;
+        const admin_id = req.session.adminId;
+        const userId = req.session.user_id;
+
+        res.render('admin_site/add', {
+            admin: admin,
+        });
+    }
+
+    // [POST] admin/employee/add
+    createTodo(req, res, next) {
+        const user_id = req.session.user_id;
+
+        const { title, dueDate } = req.body;
+        const time = moment(Date.now()).format('DD/MM HH:mm:ss');
+        const newTodoItem = {
+            title: title,
+            dueDate: dueDate,
+            time: time,
+            _id: new mongoose.Types.ObjectId(),
+        };
+
+        User.findOne({ _id: user_id })
+            .then((data) => {
+                data.todo.push(newTodoItem);
+                data.save();
+                res.redirect(`/admin/employee/${user_id}`);
+            })
+            .catch((err) => {
+                next(err);
+            });
     }
 
     // [GET] admin/employee/edit/:id

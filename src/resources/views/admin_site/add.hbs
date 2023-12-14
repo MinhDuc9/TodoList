@@ -1,0 +1,38 @@
+<div class='card card-body'>
+    {{#if message}}
+        <div class='alert {{messageClass}}' role='alert'>
+            {{message}}
+        </div>
+    {{/if}}
+    <h3>Todo</h3>
+    <form
+        onsubmit="return validateForm(document.getElementById('dueDate'))"
+        action='/admin/employee/add'
+        method='post'
+    >
+        <div class='form-group'>
+            <label for='title'>Title</label>
+            <input
+                class='form-control'
+                name='title'
+                type='text'
+                placeholder='Practice With Node JS'
+                required
+            />
+        </div>
+        <div class='form-group'>
+            <label for='dueDate'>Due Date</label>
+            <input
+                class='form-control'
+                type='date'
+                id='dueDate'
+                name='dueDate'
+                placeholder='DD/MM/YYYY'
+                required
+            />
+        </div>
+        <button type='submit' class='btn btn-dark'>Submit</button>
+    </form>
+</div>
+
+<script src='/scripts/timeDateControl.js'></script>
