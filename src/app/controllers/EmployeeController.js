@@ -104,6 +104,7 @@ class EmployeeController {
             });
     }
 
+    // [POST] admin/employee/delete
     deleteTodo(req, res, next) {
         const admin = req.session.admin;
         const email = req.session.email;
