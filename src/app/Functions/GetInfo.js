@@ -21,8 +21,8 @@ module.exports = {
                     const diff = deadline.diff(currentDate, 'milliseconds');
 
                     // Convert milliseconds to days and hours
-                    const daysLeft = Math.floor(diff / (1000 * 60 * 60 * 24));
-                    const hoursLeft = Math.floor(
+                    const hoursLeft = Math.floor(diff / (1000 * 60 * 60 * 24));
+                    const daysLeft = Math.floor(
                         (diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60),
                     );
 
