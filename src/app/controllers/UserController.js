@@ -3,6 +3,8 @@ const User = require('../models/User');
 const passport = require('passport');
 const bcrypt = require('bcrypt');
 
+const RegisterEmployee = require('../Functions/RegisterEmployee');
+
 class UserController {
     // [GET] /users/login
     login(req, res, next) {
@@ -11,7 +13,9 @@ class UserController {
 
     // [POST] /users/register
     register(req, res, next) {
-        res.render('register');
+        res.render('register', {
+            Address: '/users/register',
+        });
     }
 
     // [POST] /users/login
@@ -52,74 +56,14 @@ class UserController {
     }
 
     // [POST] /users/register
-    create_user(req, res, next) {
-        try {
-            let { name, email, password, confirmPassword } = req.body;
-            if (
-                name == '' ||
-                email == '' ||
-                password == '' ||
-                confirmPassword == ''
-            ) {
-                res.render('register', {
-                    message: 'Input Name, Email and Password!',
-                    messageClass: 'alert-danger',
-                });
-                return;
-            }
-            if (password.length < 6 || confirmPassword < 6) {
-                res.render('register', {
-                    message: 'Password must be at least 6 characters',
-                    messageClass: 'alert-danger',
-                });
-                return;
-            }
-            if (password === confirmPassword) {
-                User.findOne({ email: email })
-                    .then((data) => {
-                        if (data === null) {
-                            const saltRounds = 10;
-                            const salt = bcrypt.genSaltSync(saltRounds);
-                            const myPlaintextPassword = password;
-                            bcrypt.hash(
-                                myPlaintextPassword,
-                                salt,
-                                function (err, hash) {
-                                    const new_user = {
-                                        name,
-                                        email,
-                                        password: hash,
-                                    };
+    async create_user(req, res, next) {
+        await RegisterEmployee(req, res, next);
 
-                                    const savetoDB = new User(new_user);
-                                    savetoDB.save();
-                                    res.render('login', {
-                                        message:
-                                            'Registration Complete. Please login to continue.',
-                                        messageClass: 'alert-success',
-                                    });
-                                },
-                            );
-                        } else {
-                            res.render('register', {
-                                message: 'Email have already been registered',
-                                messageClass: 'alert-danger',
-                            });
-                        }
-                    })
-                    .catch((err) => {
-                        next(err);
-                    });
-            } else {
-                res.render('register', {
-                    message: 'Password does not match.',
-                    messageClass: 'alert-danger',
-                });
-                return;
-            }
-        } catch (err) {
-            console.log(err);
-        }
+        // Render login page with success message
+        res.render('login', {
+            message: 'Registration successful. Please log in to continue.',
+            messageClass: 'alert-success',
+        });
     }
 
     // [GET] /users/logout
@@ -140,9 +84,12 @@ class UserController {
         const email = req.session.email;
         const user_id = req.session.userId;
 
+        const Address = '/users/delete';
+
         res.render('delete', {
             user: user,
             email: email,
+            address: Address,
         });
     }
 

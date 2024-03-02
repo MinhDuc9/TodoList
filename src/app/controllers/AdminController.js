@@ -1,3 +1,4 @@
+const { json } = require('express');
 const Admin = require('../models/Admin');
 const User = require('../models/User');
 
@@ -28,12 +29,16 @@ class AdminController {
 
     // [GET] /admin/login
     get_login(req, res, next) {
-        res.render('login_admin');
+        res.render('login_admin', {
+            check: 'Login',
+        });
     }
 
     // [GET] /admin/register
     get_register(req, res, next) {
-        res.render('register_admin');
+        res.render('register_admin', {
+            check: 'Login',
+        });
     }
 
     // [GET] /admin/login

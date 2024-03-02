@@ -59,6 +59,16 @@ app.engine(
             employeeId: (employee) => {
                 return employee._id;
             },
+            exist: function (a, b, options) {
+                if (
+                    (typeof a !== 'undefined' && a !== null) ||
+                    (typeof b !== 'undefined' && b !== null)
+                ) {
+                    return options.fn(this);
+                } else {
+                    return options.inverse(this);
+                }
+            },
         },
     }),
 );

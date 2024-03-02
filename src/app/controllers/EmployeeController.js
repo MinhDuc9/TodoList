@@ -4,6 +4,7 @@ const moment = require('moment-timezone');
 const mongoose = require('mongoose');
 
 const { GetUserInfo } = require('../Functions/GetInfo');
+const RegisterEmployee = require('../Functions/RegisterEmployee');
 
 moment.tz.setDefault('Asia/Ho_Chi_Minh').locale('id');
 
@@ -129,6 +130,80 @@ class EmployeeController {
             .catch((err) => {
                 console.log(err);
             });
+    }
+
+    // [GET] /admin/delete
+    get_delete(req, res, next) {
+        const admin = req.session.admin;
+        const email = req.session.email;
+        const admin_id = req.session.adminId;
+
+        const employeeId = req.params.id;
+        const Address = `/admin/deleteEmployee/${employeeId}`;
+
+        async function getUserById(req, res, next) {
+            try {
+                const data = await User.findOne({ _id: employeeId });
+                const { id, email, name } = data;
+                res.render('delete', {
+                    user: name,
+                    email: email,
+                    address: Address,
+                    admin: admin,
+                });
+            } catch (err) {
+                console.error(err);
+                res.status(500).json({ message: 'Internal Server Error' });
+            }
+        }
+
+        getUserById(req, res, next);
+    }
+
+    // [POST] /admin/delete
+    delete_acc(req, res, next) {
+        const admin = req.session.admin;
+        const email = req.session.email;
+        const admin_id = req.session.adminId;
+
+        const { resp } = req.body;
+        const { id } = req.params;
+
+        async function deleteUserById(req, res, next) {
+            try {
+                await User.deleteOne({ _id: id });
+                res.redirect('/admin/');
+            } catch (err) {
+                console.error(err);
+                res.status(500).json({ message: 'Internal Server Error' });
+            }
+        }
+
+        if (resp === 'no') {
+            res.redirect('/admin/');
+        } else {
+            deleteUserById(req, res, next);
+        }
+    }
+
+    // [GET] /admin/register_employee
+    // Get the form
+    register_employee(req, res, next) {
+        const admin = req.session.admin;
+        const email = req.session.email;
+        const admin_id = req.session.adminId;
+        const userId = req.session.user_id;
+
+        res.render('register', {
+            admin,
+            Address: '/admin/register_employee',
+        });
+    }
+
+    // [POST] /admin/register_employee
+    async save_employee(req, res, next) {
+        await RegisterEmployee(req, res, next);
+        res.redirect('/admin/');
     }
 }
 
