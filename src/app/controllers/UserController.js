@@ -3,7 +3,7 @@ const User = require('../models/User');
 const passport = require('passport');
 const bcrypt = require('bcrypt');
 
-const RegisterEmployee = require('../Functions/RegisterEmployee');
+const RegisterEmployee = require('../Functions/Register');
 
 class UserController {
     // [GET] /users/login

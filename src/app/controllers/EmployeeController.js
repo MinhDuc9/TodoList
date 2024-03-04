@@ -4,7 +4,7 @@ const moment = require('moment-timezone');
 const mongoose = require('mongoose');
 
 const { GetUserInfo } = require('../Functions/GetInfo');
-const RegisterEmployee = require('../Functions/RegisterEmployee');
+const RegisterEmployee = require('../Functions/Register');
 
 moment.tz.setDefault('Asia/Ho_Chi_Minh').locale('id');
 

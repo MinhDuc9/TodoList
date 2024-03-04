@@ -88,16 +88,18 @@ class AdminController {
                 password == '' ||
                 confirmPassword == ''
             ) {
-                res.render('register', {
+                res.render('register_admin', {
                     message: 'Input Name, Email and Password!',
                     messageClass: 'alert-danger',
+                    check: 'Login',
                 });
                 return;
             }
             if (password.length < 6 || confirmPassword < 6) {
-                res.render('register', {
+                res.render('register_admin', {
                     message: 'Password must be at least 6 characters',
                     messageClass: 'alert-danger',
+                    check: 'Login',
                 });
                 return;
             }
@@ -124,6 +126,7 @@ class AdminController {
                                         message:
                                             'Registration Complete. Please login to continue.',
                                         messageClass: 'alert-success',
+                                        check: 'Login',
                                     });
                                 },
                             );
@@ -131,6 +134,7 @@ class AdminController {
                             res.render('register_admin', {
                                 message: 'Email have already been registered',
                                 messageClass: 'alert-danger',
+                                check: 'Login',
                             });
                         }
                     })
@@ -141,6 +145,7 @@ class AdminController {
                 res.render('register_admin', {
                     message: 'Password does not match.',
                     messageClass: 'alert-danger',
+                    check: 'Login',
                 });
                 return;
             }
